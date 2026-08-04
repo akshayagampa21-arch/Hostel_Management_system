@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RK Hostel — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, #07112a 0%, #0d1b3e 45%, #1a2f6e 80%, #0d3052 100%);
+}
+.bg-pattern {
+  position: fixed; inset: 0; pointer-events: none;
+  background-image:
+    repeating-linear-gradient(45deg, rgba(201,168,76,0.04) 0px, rgba(201,168,76,0.04) 1px, transparent 1px, transparent 50px),
+    repeating-linear-gradient(-45deg, rgba(201,168,76,0.04) 0px, rgba(201,168,76,0.04) 1px, transparent 1px, transparent 50px);
+}
+.card {
+  position: relative; z-index: 10;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,168,76,0.25);
+  border-radius: 24px;
+  padding: 52px 48px;
+  width: 100%; max-width: 440px;
+  box-shadow: 0 24px 70px rgba(0,0,0,0.55);
+}
+.logo { text-align: center; margin-bottom: 32px; }
+.logo-icon {
+  width: 68px; height: 68px;
+  background: linear-gradient(135deg, #c9a84c, #8a6d2f);
+  border-radius: 18px;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-size: 34px; margin-bottom: 16px;
+  box-shadow: 0 8px 26px rgba(201,168,76,0.45);
+}
+.logo-title { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 800; color: #fff; }
+.logo-sub { color: #e2c47a; font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; margin-top: 5px; }
+.divider { width: 55px; height: 2px; background: linear-gradient(90deg, transparent, #c9a84c, transparent); margin: 22px auto 28px; }
+.role-tabs { display: flex; gap: 8px; margin-bottom: 28px; }
+.rtab {
+  flex: 1; padding: 13px 10px;
+  background: rgba(255,255,255,0.05);
+  border: 1.5px solid rgba(255,255,255,0.13);
+  border-radius: 11px; color: rgba(255,255,255,0.55);
+  font-size: 13px; font-weight: 600; cursor: pointer;
+  transition: all .2s; font-family: 'DM Sans', sans-serif;
+}
+.rtab.active { background: rgba(201,168,76,0.15); border-color: #c9a84c; color: #e2c47a; }
+.rtab:hover { border-color: rgba(201,168,76,0.5); color: #e2c47a; }
+.field { margin-bottom: 18px; }
+.field label { display: block; font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.45); letter-spacing: 1.2px; text-transform: uppercase; margin-bottom: 8px; }
+.field input {
+  width: 100%; padding: 13px 16px;
+  background: rgba(255,255,255,0.07);
+  border: 1.5px solid rgba(255,255,255,0.15);
+  border-radius: 11px; color: #fff;
+  font-size: 14px; font-family: 'DM Sans', sans-serif;
+  outline: none; transition: all .2s;
+}
+.field input:focus { border-color: #c9a84c; background: rgba(255,255,255,0.1); }
+.field input::placeholder { color: rgba(255,255,255,0.28); }
+.login-btn {
+  width: 100%; padding: 15px;
+  background: linear-gradient(135deg, #c9a84c, #8a6d2f);
+  color: #0d1b3e; border: none; border-radius: 11px;
+  font-size: 15px; font-weight: 700; cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all .25s; margin-top: 10px;
+  box-shadow: 0 6px 22px rgba(201,168,76,0.38);
+}
+.login-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 32px rgba(201,168,76,0.52); }
+.error-msg { color: #ff8888; font-size: 13px; text-align: center; margin-top: 14px; min-height: 20px; }
+.hint { text-align: center; margin-top: 22px; font-size: 12px; color: rgba(255,255,255,0.3); line-height: 1.8; }
+.hint strong { color: rgba(255,255,255,0.5); }
+</style>
+</head>
+<body>
+<div class="bg-pattern"></div>
+
+<div class="card">
+  <div class="logo">
+    <div class="logo-icon">🏨</div>
+    <div class="logo-title">RK  WOMEN'S HOSTEL</div>
+    <div class="logo-sub">Management System</div>
+  </div>
+  <div class="divider"></div>
+
+  <div class="role-tabs">
+    <button class="rtab active" id="tabAdmin" onclick="selectRole('admin')">🔑 Admin Login</button>
+    <button class="rtab" id="tabStudent" onclick="selectRole('student')">🎓 Student Login</button>
+  </div>
+
+  <div class="field">
+    <label>Username</label>
+    <input type="text" id="username" placeholder="Enter username" autocomplete="off">
+  </div>
+  <div class="field">
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Enter password">
+  </div>
+
+  <div class="error-msg" id="errorMsg"></div>
+  <button class="login-btn" onclick="doLogin()">Login →</button>
+<script>
+var selectedRole = 'admin';
+
+function selectRole(role) {
+  selectedRole = role;
+  document.getElementById('tabAdmin').className = 'rtab' + (role === 'admin' ? ' active' : '');
+  document.getElementById('tabStudent').className = 'rtab' + (role === 'student' ? ' active' : '');
+  document.getElementById('username').value = '';
+  document.getElementById('password').value = '';
+  document.getElementById('errorMsg').textContent = '';
+}
+
+function doLogin() {
+  var user = document.getElementById('username').value.trim();
+  var pass = document.getElementById('password').value;
+  var err = document.getElementById('errorMsg');
+
+  var valid = false;
+  if (selectedRole === 'admin' && user === 'admin' && pass === 'admin123') valid = true;
+  if (selectedRole === 'student' && user === 'student' && pass === 'student123') valid = true;
+
+  if (valid) {
+    localStorage.setItem('rk_role', selectedRole);
+    window.location.href = 'dashboard.html';
+  } else {
+    err.textContent = '❌ Invalid username or password';
+    document.getElementById('password').value = '';
+    setTimeout(function() { err.textContent = ''; }, 3000);
+  }
+}
+
+document.getElementById('password').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') doLogin();
+});
+</script>
+</body>
+</html>

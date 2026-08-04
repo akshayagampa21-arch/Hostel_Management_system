@@ -1,0 +1,1480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RK Hostel Management System</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --navy: #0d1b3e;
+  --navy-mid: #162347;
+  --navy-light: #1e2f5c;
+  --gold: #c9a84c;
+  --gold-light: #e2c47a;
+  --gold-dim: #8a6d2f;
+  --cream: #f7f2e8;
+  --cream-dark: #ede5d0;
+  --white: #ffffff;
+  --text-dark: #0d1b3e;
+  --text-body: #3a3a4a;
+  --text-muted: #7a7a8a;
+  --success: #1a7a4a;
+  --danger: #b03030;
+  --card-bg: #ffffff;
+  --border: #e0d8c8;
+  --shadow: 0 4px 24px rgba(13,27,62,0.10);
+  --shadow-lg: 0 8px 40px rgba(13,27,62,0.18);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', sans-serif;
+  background: var(--cream);
+  color: var(--text-body);
+  min-height: 100vh;
+}
+
+/* ── HEADER ── */
+header {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  border-bottom: 3px solid var(--gold);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 76px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 4px 20px rgba(13,27,62,0.35);
+}
+
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.header-logo-icon {
+  width: 44px;
+  height: 44px;
+  background: var(--gold);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+}
+
+.header-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  letter-spacing: 0.5px;
+  line-height: 1.1;
+}
+
+.header-subtitle {
+  font-size: 11px;
+  color: var(--gold-light);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.header-badge {
+  background: rgba(201,168,76,0.18);
+  border: 1px solid rgba(201,168,76,0.4);
+  color: var(--gold-light);
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+/* ── HERO / HOME ── */
+#home {
+  display: block;
+  padding: 0;
+}
+
+.hero {
+  background: linear-gradient(160deg, var(--navy) 0%, #1a2f6e 55%, #0d3052 100%);
+  min-height: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 70px 40px 60px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 50% at 50% 0%, rgba(201,168,76,0.12) 0%, transparent 70%),
+    radial-gradient(ellipse 40% 60% at 80% 100%, rgba(30,60,114,0.5) 0%, transparent 70%);
+}
+
+.hero-pattern {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--gold) 0px,
+    var(--gold) 1px,
+    transparent 1px,
+    transparent 40px
+  );
+}
+
+.hero-content { position: relative; z-index: 2; max-width: 750px; }
+
+.hero-tag {
+  display: inline-block;
+  background: rgba(201,168,76,0.2);
+  border: 1px solid rgba(201,168,76,0.5);
+  color: var(--gold-light);
+  padding: 6px 18px;
+  border-radius: 30px;
+  font-size: 12px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-bottom: 22px;
+}
+
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(34px, 5vw, 58px);
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 18px;
+}
+
+.hero-title span { color: var(--gold); }
+
+.hero-desc {
+  color: rgba(255,255,255,0.72);
+  font-size: 16px;
+  line-height: 1.7;
+  margin-bottom: 36px;
+  font-weight: 300;
+}
+
+.hero-divider {
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold), transparent);
+  margin: 0 auto 32px;
+  border-radius: 2px;
+}
+
+.hero-btns {
+  display: flex;
+  gap: 14px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dim) 100%);
+  color: var(--navy);
+  border: none;
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  transition: all 0.25s;
+  box-shadow: 0 4px 16px rgba(201,168,76,0.35);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(201,168,76,0.5);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--white);
+  border: 1.5px solid rgba(255,255,255,0.45);
+  padding: 14px 32px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.btn-outline:hover {
+  border-color: var(--gold);
+  color: var(--gold-light);
+  background: rgba(201,168,76,0.08);
+}
+
+/* ── STATS STRIP ── */
+.stats-strip {
+  background: var(--white);
+  border-bottom: 1px solid var(--border);
+  padding: 0 40px;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0;
+  box-shadow: var(--shadow);
+}
+
+.stat-item {
+  padding: 26px 40px;
+  text-align: center;
+  border-right: 1px solid var(--border);
+  min-width: 180px;
+  flex: 1;
+  max-width: 240px;
+}
+
+.stat-item:last-child { border-right: none; }
+
+.stat-number {
+  font-family: 'Playfair Display', serif;
+  font-size: 34px;
+  font-weight: 700;
+  color: var(--navy);
+  line-height: 1;
+}
+
+.stat-label {
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  margin-top: 6px;
+  font-weight: 500;
+}
+
+.stat-icon {
+  font-size: 18px;
+  margin-bottom: 6px;
+}
+
+/* ── HOME SECTIONS ── */
+.home-body {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 60px 40px;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.section-tag {
+  font-size: 11px;
+  color: var(--gold-dim);
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 30px;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.section-line {
+  width: 50px;
+  height: 3px;
+  background: var(--gold);
+  margin: 14px auto 0;
+  border-radius: 2px;
+}
+
+/* Facilities Grid on Home */
+.facilities-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+  margin-top: 30px;
+}
+
+.fac-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 26px 20px;
+  text-align: center;
+  box-shadow: var(--shadow);
+  transition: all 0.25s;
+  cursor: default;
+}
+
+.fac-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--gold);
+}
+
+.fac-icon { font-size: 30px; margin-bottom: 10px; }
+.fac-name { font-size: 13px; font-weight: 600; color: var(--navy); letter-spacing: 0.3px; }
+
+/* About strip */
+.about-strip {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  border-radius: 16px;
+  padding: 50px 50px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: center;
+  margin-bottom: 60px;
+}
+
+.about-text-tag { color: var(--gold); font-size: 11px; letter-spacing: 2.5px; text-transform: uppercase; font-weight: 600; margin-bottom: 12px; }
+.about-title { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--white); font-weight: 700; margin-bottom: 16px; }
+.about-desc { color: rgba(255,255,255,0.65); font-size: 14px; line-height: 1.8; font-weight: 300; }
+
+.about-points { list-style: none; }
+.about-points li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.8);
+  font-size: 14px;
+}
+
+.about-points li:last-child { border-bottom: none; }
+.about-check { color: var(--gold); font-size: 16px; }
+
+/* ── NAV ── */
+nav {
+  background: var(--white);
+  border-bottom: 2px solid var(--border);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 12px 20px;
+  gap: 6px;
+  position: sticky;
+  top: 76px;
+  z-index: 99;
+  box-shadow: 0 2px 12px rgba(13,27,62,0.06);
+}
+
+nav button {
+  background: transparent;
+  color: var(--text-body);
+  border: 1.5px solid transparent;
+  border-radius: 7px;
+  padding: 9px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: 'DM Sans', sans-serif;
+  letter-spacing: 0.2px;
+}
+
+nav button:hover, nav button.active-tab {
+  background: var(--navy);
+  color: var(--white);
+  border-color: var(--navy);
+}
+
+/* ── SECTIONS ── */
+section {
+  display: none;
+  padding: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+
+.active { display: block !important; }
+
+.page-header {
+  margin-bottom: 32px;
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.page-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 26px;
+  color: var(--navy);
+  font-weight: 700;
+}
+
+.page-subtitle { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+
+/* ── FORM CARD ── */
+.form-card {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 30px;
+  box-shadow: var(--shadow);
+  margin-bottom: 30px;
+}
+
+.form-card h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 16px;
+  color: var(--navy);
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 14px;
+  margin-bottom: 20px;
+}
+
+input, textarea, select {
+  background: var(--cream);
+  color: var(--text-dark);
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 13px;
+  font-family: 'DM Sans', sans-serif;
+  width: 100%;
+  transition: border 0.2s;
+  outline: none;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--navy);
+  background: var(--white);
+}
+
+input::placeholder, textarea::placeholder { color: var(--text-muted); }
+
+/* ── BUTTONS ── */
+button.action {
+  background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+  color: var(--white);
+  border: none;
+  padding: 11px 24px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  transition: all 0.2s;
+  letter-spacing: 0.3px;
+}
+
+button.action:hover {
+  background: var(--gold);
+  color: var(--navy);
+  transform: translateY(-1px);
+}
+
+button.action.danger {
+  background: var(--danger);
+}
+
+button.action.small {
+  padding: 6px 14px;
+  font-size: 12px;
+}
+
+/* ── TABLES ── */
+.table-wrap {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: var(--shadow);
+}
+
+table { width: 100%; border-collapse: collapse; }
+
+thead { background: var(--navy); }
+thead th {
+  color: var(--white);
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 600;
+  text-align: left;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+tbody tr { border-bottom: 1px solid var(--border); transition: background 0.15s; }
+tbody tr:last-child { border-bottom: none; }
+tbody tr:hover { background: var(--cream); }
+
+td {
+  padding: 13px 16px;
+  font-size: 13px;
+  color: var(--text-body);
+}
+
+.badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+}
+
+.badge-success { background: #d1fae5; color: #065f46; }
+.badge-danger  { background: #fee2e2; color: #991b1b; }
+.badge-info    { background: #dbeafe; color: #1e40af; }
+
+/* ── TIMINGS TABLE ── */
+#timings table thead th, #menu table thead th {
+  text-align: center;
+}
+#timings td, #menu td { text-align: center; }
+
+/* ── NOTICE / FEEDBACK ── */
+.notice-list { list-style: none; }
+.notice-list li {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+  padding: 16px 20px;
+  margin-bottom: 12px;
+  font-size: 14px;
+  color: var(--text-body);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow);
+}
+
+.notice-list li::before { content: '📌'; }
+
+.extra-list { list-style: none; }
+.extra-list li {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 20px;
+  margin-bottom: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--navy);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: var(--shadow);
+}
+
+.note-box {
+  background: #fff8e1;
+  border: 1px solid #ffe082;
+  border-left: 4px solid #f59e0b;
+  border-radius: 8px;
+  padding: 14px 18px;
+  color: #78350f;
+  font-size: 13px;
+  font-weight: 500;
+  margin-top: 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Feedback */
+.fb-item {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px 20px;
+  margin-bottom: 10px;
+  box-shadow: var(--shadow);
+}
+.fb-author { font-weight: 600; color: var(--navy); font-size: 13px; }
+.fb-text { color: var(--text-muted); font-size: 13px; margin-top: 4px; }
+
+/* Gallery */
+.gallery-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+gap:30px;
+padding:30px;
+}
+
+.gallery-card{
+background:white;
+border-radius:20px;
+overflow:hidden;
+box-shadow:0 4px 15px rgba(0,0,0,0.15);
+transition:.3s;
+}
+
+.gallery-card:hover{
+transform:scale(1.03);
+}
+
+.gallery-card img{
+width:100%;
+height:250px;
+object-fit:cover;
+}
+
+.gallery-caption{
+padding:15px;
+text-align:center;
+font-size:20px;
+font-weight:bold;
+background:#f5f5f5;
+}
+/* ── INFO FOOTER ── */
+.page-footer {
+  background: var(--navy);
+  color: rgba(255,255,255,0.55);
+  text-align: center;
+  padding: 22px;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+  margin-top: 60px;
+  border-top: 2px solid var(--gold);
+}
+
+.page-footer span { color: var(--gold); }
+
+/* Info boxes */
+.info-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-bottom: 30px;
+}
+.info-box {
+  background: var(--white);
+  border: 1px solid var(--border);
+  border-top: 3px solid var(--gold);
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.info-box-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+.info-box-value { font-family: 'Playfair Display', serif; font-size: 28px; color: var(--navy); font-weight: 700; margin-top: 4px; }
+
+@media (max-width: 700px) {
+  header { padding: 0 18px; }
+  .stats-strip { padding: 0 10px; }
+  .stat-item { padding: 18px 16px; min-width: 130px; }
+  section { padding: 20px 16px; }
+  .about-strip { grid-template-columns: 1fr; padding: 30px 24px; }
+  .home-body { padding: 40px 16px; }
+  .hero { padding: 50px 20px; }
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+<header>
+  <div class="header-brand">
+    <div class="header-logo-icon">🏨</div>
+    <div>
+      <div class="header-title">RK  WOMEN'S HOSTEL</div>
+      <div class="header-subtitle">Management System</div>
+    </div>
+  </div>
+  <div class="header-right" style="display:flex;align-items:center;gap:10px;">
+    <span id="roleChip"></span>
+    <div class="header-badge">📍 Hyderabad</div>
+    <button id="logoutBtn" onclick="doLogout()" style="background:transparent;color:rgba(255,255,255,0.6);border:1px solid rgba(255,255,255,0.25);padding:7px 16px;border-radius:20px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;">🚪 Logout</button>
+  </div>
+</header>
+
+<nav>
+  <button onclick="show('home')" class="active-tab">🏠 Home</button>
+  <button class="admin-nav" onclick="show('admindash')">📊 Dashboard</button>
+  <button class="admin-nav" onclick="show('students')">👤 Students</button>
+  <button class="admin-nav" onclick="show('fees')">💰 Fees</button>
+  <button onclick="show('feedback')">💬 Feedback</button>
+  <button onclick="show('facilities')">🏢 Facilities</button>
+  <button onclick="show('extra')">➕ Extra Services</button>
+  <button onclick="show('timings')">⏰ Timings</button>
+  <button onclick="show('menu')">🍽 Menu</button>
+  <button onclick="show('notice')">📋 Notices</button>
+  <button class="student-only" style="display:none" onclick="show('complaint')">📩 Complaints</button>
+  <button id="complaintNav" style="display:none" onclick="show('complaint')">📩 Complaints</button>
+  <button onclick="openLocation()">📍 Location</button>
+  <button onclick="show('gallery')">🖼 Gallery</button>
+</nav>
+
+<!-- ═══════════ HOME ═══════════ -->
+<section id="home" class="active" style="padding:0; max-width:100%;">
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-pattern"></div>
+    <div class="hero-content">
+      <div class="hero-tag">🏨 Welcome to RK  Women's Hostel</div>
+      <h1 class="hero-title">Your Home Away<br>from <span>Home</span></h1>
+      <div class="hero-divider"></div>
+      <p class="hero-desc">Experience premium student accommodation with world-class facilities, professional management, and a safe, comfortable living environment in the heart of Hyderabad.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="show('students')">Register Student</button>
+        <button class="btn-outline" onclick="show('facilities')">Explore Facilities</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- STATS -->
+  <div class="stats-strip">
+    <div class="stat-item">
+      <div class="stat-icon">👥</div>
+      <div class="stat-number" id="totalStudents">0</div>
+      <div class="stat-label">Total Students</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon">🛏</div>
+      <div class="stat-number" id="availableBeds">40</div>
+      <div class="stat-label">Available Beds</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon">🚪</div>
+      <div class="stat-number" id="occupiedRooms">0</div>
+      <div class="stat-label">Occupied Rooms</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-icon">⚠️</div>
+      <div class="stat-number" id="pendingFees">0</div>
+      <div class="stat-label">Pending Fees</div>
+    </div>
+  </div>
+
+  <!-- HOME BODY -->
+  <div class="home-body">
+    <!-- About Strip -->
+    <div class="about-strip">
+      <div>
+        <div class="about-text-tag">About Us</div>
+        <div class="about-title">A Trusted Name in Student Accommodation</div>
+        <div class="about-desc">RK women's Hostel has been providing safe, affordable, and comfortable accommodation to students since 2020. We are committed to creating an environment that supports academic success and personal growth.</div>
+      </div>
+      <div>
+        <ul class="about-points">
+          <li><span class="about-check">✦</span> 24/7 Security & CCTV Surveillance</li>
+          <li><span class="about-check">✦</span> Professional Housekeeping Staff</li>
+          <li><span class="about-check">✦</span> Nutritious Homestyle Meals Daily</li>
+          <li><span class="about-check">✦</span> High-Speed WiFi Throughout</li>
+          <li><span class="about-check">✦</span> Dedicated Study Areas & Common Rooms</li>
+          <li><span class="about-check">✦</span> Transparent Fee Management</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Facilities Preview -->
+    <div class="section-header">
+      <div class="section-tag">What We Offer</div>
+      <div class="section-title">Premium Facilities</div>
+      <div class="section-line"></div>
+    </div>
+</section>
+
+
+<!-- ═══════════ ADMIN DASHBOARD ═══════════ -->
+<section id="admindash">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Admin Dashboard</div>
+      <div class="page-subtitle">Live overview of hostel statistics and analytics</div>
+    </div>
+    <button class="action" onclick="refreshDash()">🔄 Refresh</button>
+  </div>
+
+  <!-- KPI Cards -->
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:18px;margin-bottom:32px;">
+    <div style="background:linear-gradient(135deg,#0d1b3e,#1e2f5c);border-radius:14px;padding:24px;color:white;box-shadow:0 4px 20px rgba(13,27,62,0.2);">
+      <div style="font-size:28px;margin-bottom:6px;">👥</div>
+      <div style="font-size:32px;font-weight:700;font-family:Playfair Display,serif;" id="dash_total">0</div>
+      <div style="font-size:12px;opacity:.65;letter-spacing:1px;text-transform:uppercase;margin-top:4px;">Total Students</div>
+    </div>
+    <div style="background:linear-gradient(135deg,#1a5c2e,#2d8a4e);border-radius:14px;padding:24px;color:white;box-shadow:0 4px 20px rgba(26,92,46,0.2);">
+      <div style="font-size:28px;margin-bottom:6px;">✅</div>
+      <div style="font-size:32px;font-weight:700;font-family:Playfair Display,serif;" id="dash_paid">0</div>
+      <div style="font-size:12px;opacity:.65;letter-spacing:1px;text-transform:uppercase;margin-top:4px;">Fees Paid</div>
+    </div>
+    <div style="background:linear-gradient(135deg,#7a2020,#b03030);border-radius:14px;padding:24px;color:white;box-shadow:0 4px 20px rgba(122,32,32,0.2);">
+      <div style="font-size:28px;margin-bottom:6px;">⚠️</div>
+      <div style="font-size:32px;font-weight:700;font-family:Playfair Display,serif;" id="dash_pending">0</div>
+      <div style="font-size:12px;opacity:.65;letter-spacing:1px;text-transform:uppercase;margin-top:4px;">Fees Pending</div>
+    </div>
+    <div style="background:linear-gradient(135deg,#7a5a10,#c9a84c);border-radius:14px;padding:24px;color:white;box-shadow:0 4px 20px rgba(201,168,76,0.2);">
+      <div style="font-size:28px;margin-bottom:6px;">🛏</div>
+      <div style="font-size:32px;font-weight:700;font-family:Playfair Display,serif;" id="dash_beds">0</div>
+      <div style="font-size:12px;opacity:.65;letter-spacing:1px;text-transform:uppercase;margin-top:4px;">Available Beds</div>
+    </div>
+    <div style="background:linear-gradient(135deg,#1a3a6e,#2a5aa0);border-radius:14px;padding:24px;color:white;box-shadow:0 4px 20px rgba(26,58,110,0.2);">
+      <div style="font-size:28px;margin-bottom:6px;">💰</div>
+      <div style="font-size:32px;font-weight:700;font-family:Playfair Display,serif;" id="dash_revenue">₹0</div>
+      <div style="font-size:12px;opacity:.65;letter-spacing:1px;text-transform:uppercase;margin-top:4px;">Total Revenue</div>
+    </div>
+    <div style="background:linear-gradient(135deg,#3a1a6e,#5a2aa0);border-radius:14px;padding:24px;color:white;box-shadow:0 4px 20px rgba(58,26,110,0.2);">
+      <div style="font-size:28px;margin-bottom:6px;">🏠</div>
+      <div style="font-size:32px;font-weight:700;font-family:Playfair Display,serif;" id="dash_rooms">0</div>
+      <div style="font-size:12px;opacity:.65;letter-spacing:1px;text-transform:uppercase;margin-top:4px;">Rooms Occupied</div>
+    </div>
+  </div>
+
+  <!-- Charts Row -->
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-bottom:28px;">
+    <!-- Occupancy Chart -->
+    <div style="background:white;border:1px solid #e0d8c8;border-radius:14px;padding:24px;box-shadow:0 4px 16px rgba(13,27,62,0.07);">
+      <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#0d1b3e;margin-bottom:4px;">🛏 Bed Occupancy</div>
+      <div style="font-size:12px;color:#888;margin-bottom:18px;">Occupied vs Available beds</div>
+      <canvas id="chartOccupancy" height="220"></canvas>
+    </div>
+    <!-- Fee Status Chart -->
+    <div style="background:white;border:1px solid #e0d8c8;border-radius:14px;padding:24px;box-shadow:0 4px 16px rgba(13,27,62,0.07);">
+      <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#0d1b3e;margin-bottom:4px;">💰 Fee Collection Status</div>
+      <div style="font-size:12px;color:#888;margin-bottom:18px;">Paid vs Pending students</div>
+      <canvas id="chartFees" height="220"></canvas>
+    </div>
+  </div>
+
+  <!-- Revenue Bar Chart - full width -->
+  <div style="background:white;border:1px solid #e0d8c8;border-radius:14px;padding:24px;box-shadow:0 4px 16px rgba(13,27,62,0.07);margin-bottom:28px;">
+    <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#0d1b3e;margin-bottom:4px;">📈 Revenue per Student</div>
+    <div style="font-size:12px;color:#888;margin-bottom:18px;">Fees collected per registered student</div>
+    <canvas id="chartRevenue" height="120"></canvas>
+  </div>
+
+  <!-- Room Utilisation -->
+  <div style="background:white;border:1px solid #e0d8c8;border-radius:14px;padding:24px;box-shadow:0 4px 16px rgba(13,27,62,0.07);">
+    <div style="font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#0d1b3e;margin-bottom:18px;">🚪 Room Utilisation</div>
+    <div id="roomBars"></div>
+  </div>
+</section>
+
+<!-- ═══════════ STUDENTS ═══════════ -->
+<section id="students">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Student Registration</div>
+      <div class="page-subtitle">Add and manage hostel residents</div>
+    </div>
+  </div>
+
+  <div class="info-row">
+    <div class="info-box">
+      <div class="info-box-label">Rooms Occupied</div>
+      <div class="info-box-value" id="roomsUsed">0</div>
+    </div>
+    <div class="info-box">
+      <div class="info-box-label">Available Beds</div>
+      <div class="info-box-value" id="beds">40</div>
+    </div>
+    <div class="info-box">
+      <div class="info-box-label">Available Rooms</div>
+      <div class="info-box-value" id="rooms">10</div>
+    </div>
+  </div>
+
+  <div class="form-card admin-only">
+    <h3>New Student Details</h3>
+    <div class="form-grid">
+      <input id="sname" placeholder="Student Full Name">
+      <input id="college" placeholder="College Name">
+      <input id="idproof" placeholder="ID Proof Number">
+      <input id="phone" placeholder="Student Phone">
+      <input id="parent" placeholder="Parent Phone">
+      <input id="paid" placeholder="Fees Paid (₹)" type="number">
+      <input type="date" id="doj">
+    </div>
+    <button class="action" onclick="addStudent()">+ Register Student</button>
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>Name</th><th>College</th><th>Phone</th><th>Room</th><th>Bed</th><th>Fees Paid</th><th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="studentTable"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ FEES ═══════════ -->
+<section id="fees">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Fee Payment Management</div>
+      <div class="page-subtitle">Track student fee status and dues</div>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Student</th><th>Fees Paid (₹)</th><th>Due Amount (₹)</th><th>Status</th></tr>
+      </thead>
+      <tbody id="feeTable"></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ FEEDBACK ═══════════ -->
+<section id="feedback">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Student Feedback</div>
+      <div class="page-subtitle">Share your thoughts and suggestions</div>
+    </div>
+  </div>
+  <div class="form-card">
+    <h3>Submit Feedback</h3>
+    <div class="form-grid">
+      <input id="fbName" placeholder="Your Name">
+    </div>
+    <textarea id="fbText" placeholder="Write your feedback here..." rows="4" style="width:100%; margin-bottom:16px;"></textarea>
+    <button class="action" onclick="addFeedback()">Submit Feedback</button>
+  </div>
+  <div id="fbList"></div>
+</section>
+
+<!-- ═══════════ COMPLAINT ═══════════ -->
+<section id="complaint">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Complaint Box</div>
+      <div class="page-subtitle">Report issues confidentially</div>
+    </div>
+  </div>
+  <div class="form-card">
+    <h3>Submit a Complaint</h3>
+    <textarea id="complaintText" placeholder="Describe your complaint in detail..." rows="5" style="width:100%; margin-bottom:16px;"></textarea>
+    <button class="action" onclick="addComplaint()">Submit Complaint</button>
+  </div>
+  <ul id="complaintList" class="notice-list"></ul>
+</section>
+
+<!-- ═══════════ NOTICE ═══════════ -->
+<section id="notice">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Notice Board</div>
+      <div class="page-subtitle">Important hostel announcements</div>
+    </div>
+  </div>
+  <ul class="notice-list">
+    <li>Fee due date is 5th of every month — please ensure timely payment.</li>
+    <li>Gate timings are strictly followed. No entry after 10:00 PM without prior permission.</li>
+    <li>Sunday special dinner this week — Chicken Biryani & Kaaju Paneer.</li>
+    <li>Maintenance work scheduled on 2nd floor washrooms — Saturday 9 AM to 1 PM.</li>
+    <li>All students must submit updated ID proofs by end of month.</li>
+  </ul>
+</section>
+
+<!-- ═══════════ FACILITIES ═══════════ -->
+<section id="facilities">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Hostel Facilities</div>
+      <div class="page-subtitle">Everything we provide for your comfort</div>
+    </div>
+  </div>
+  <div class="facilities-grid">
+    <div class="fac-card"><div class="fac-icon">🚌</div><div class="fac-name">Bus Facility</div></div>
+    <div class="fac-card"><div class="fac-icon">📶</div><div class="fac-name">High-Speed WiFi</div></div>
+    <div class="fac-card"><div class="fac-icon">⚡</div><div class="fac-name">24H Electricity</div></div>
+    <div class="fac-card"><div class="fac-icon">🚿</div><div class="fac-name">Hot Water</div></div>
+    <div class="fac-card"><div class="fac-icon">🧺</div><div class="fac-name">Washing Machine</div></div>
+    <div class="fac-card"><div class="fac-icon">🍽</div><div class="fac-name">Food Court</div></div>
+    <div class="fac-card"><div class="fac-icon">🍳</div><div class="fac-name">Self Cooking Area</div></div>
+    <div class="fac-card"><div class="fac-icon">🧊</div><div class="fac-name">Refrigerator</div></div>
+    <div class="fac-card"><div class="fac-icon">🔐</div><div class="fac-name">24/7 Security</div></div>
+    <div class="fac-card"><div class="fac-icon">📚</div><div class="fac-name">Study Room</div></div>
+    <div class="fac-card"><div class="fac-icon">🏋️</div><div class="fac-name">Fitness Area</div></div>
+    <div class="fac-card"><div class="fac-icon">🅿️</div><div class="fac-name">Parking Space</div></div>
+  </div>
+</section>
+
+<!-- ═══════════ EXTRA ═══════════ -->
+<section id="extra">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Additional Services</div>
+      <div class="page-subtitle">Optional add-ons available on request</div>
+    </div>
+  </div>
+  <ul class="extra-list">
+    <li>🪣 Buckets & Water Storage</li>
+    <li>🛏 Cots & Bed Frames</li>
+    <li>🔒 Personal Lockers</li>
+    <li>🛌 Mattress & Bedding</li>
+    <li>🪑 Study Chairs</li>
+  </ul>
+  <div class="note-box">⚠️ Note: The above facilities are available at additional charges. Please contact the hostel management for pricing.</div>
+</section>
+
+<!-- ═══════════ TIMINGS ═══════════ -->
+<section id="timings">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Hostel Timings</div>
+      <div class="page-subtitle">Daily schedule — please adhere strictly</div>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead><tr><th>Activity</th><th>Timing</th></tr></thead>
+      <tbody>
+        <tr><td>🚪 Gate Opening</td><td>6:00 AM</td></tr>
+        <tr><td>🛗 Lift Hours</td><td>7:00 AM – 11:00 PM</td></tr>
+        <tr><td>🥞 Breakfast</td><td>7:30 AM – 9:30 AM</td></tr>
+        <tr><td>🍛 Lunch</td><td>12:00 PM – 2:00 PM</td></tr>
+        <tr><td>🫖 Snacks</td><td>4:00 PM – 5:00 PM</td></tr>
+        <tr><td>🌙 Dinner</td><td>7:30 PM – 9:30 PM</td></tr>
+        <tr><td>🌃 Gate Closing</td><td>10:00 PM</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="note-box" style="margin-top:20px">⏰ Timings are strictly enforced. Late entry requires prior written permission from management.</div>
+</section>
+
+<!-- ═══════════ MENU ═══════════ -->
+<section id="menu">
+  <div class="page-header">
+    <div>
+      <div class="page-title">Weekly Food Menu</div>
+      <div class="page-subtitle">Nutritious and homestyle meals every day</div>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr><th>Day</th><th>Breakfast</th><th>Lunch</th><th>Snacks</th><th>Dinner</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><strong>Monday</strong></td><td>Pongal</td><td>Potato Fry, Sambar, Butter Milk</td><td>Sweet Corn</td><td>Brinjal Curry, Dal, Curd</td></tr>
+        <tr><td><strong>Tuesday</strong></td><td>Chapathi, Chole Masala</td><td>Bendi Fry, Mango Pickle</td><td>Raagi Jaava</td><td>Veg Pulav, Peas Masala</td></tr>
+        <tr><td><strong>Wednesday</strong></td><td>Poori</td><td>Meal-maker Biryani</td><td>Samosa</td><td>Egg Biryani / Veg Biryani</td></tr>
+        <tr><td><strong>Thursday</strong></td><td>Onion Dosa</td><td>Cabbage Fry, Sambar</td><td>Mixture</td><td>Kichidi, Pachi Pulusu</td></tr>
+        <tr><td><strong>Friday</strong></td><td>Upma</td><td>Tomato Rice</td><td>Punugulu</td><td>Fried Rice</td></tr>
+        <tr><td><strong>Saturday</strong></td><td>Lemon Rice</td><td>Leafy Veg Curry</td><td>Maggi</td><td>Parota, Sabji</td></tr>
+        <tr><td><strong>Sunday</strong></td><td>Vada</td><td>Egg Burji, Dal</td><td>Chaat</td><td>🍗 Chicken Biryani / Kaaju Paneer Biryani</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ═══════════ GALLERY ═══════════ -->
+
+<section id="gallery">
+<div class="page-header">
+<h2 class="page-title">Hostel Gallery</h2>
+<p class="page-subtitle">A glimpse of your new home</p>
+</div>
+
+<div class="gallery-grid">
+
+<div class="gallery-card">
+<img src="images/hostel.jpg" alt="Hostel Building">
+<div class="gallery-caption">🏨 Hostel Building</div>
+</div>
+
+<div class="gallery-card">
+<img src="images/room.jpg" alt="Room">
+<div class="gallery-caption">🛏 Hostel Room</div>
+</div>
+
+<div class="gallery-card">
+<img src="images/food.jpg" alt="Mess">
+<div class="gallery-caption">🍽 Mess Hall</div>
+</div>
+
+<div class="gallery-card">
+<img src="images/bus.jpg" alt="Bus">
+<div class="gallery-caption">🚌 Hostel Transport</div>
+</div>
+
+</div>
+</section></section>
+
+<footer class="page-footer">
+  © 2025 <span>RK Hostel</span> — Hyderabad, Telangana &nbsp;|&nbsp; All Rights Reserved &nbsp;|&nbsp; For enquiries contact management
+</footer>
+
+<script>
+// ── AUTH ──────────────────────────────────────────────────────────────────────
+function getRole() { return localStorage.getItem('rk_role') || ''; }
+
+function doLogout() {
+  if (confirm('Logout from RK Hostel?')) {
+    localStorage.removeItem('rk_role');
+    window.location.href = 'login.html';
+  }
+}
+
+function applyRoleUI() {
+  var role = getRole();
+  var chip = document.getElementById('roleChip');
+  // Show role chip
+  if (role === 'admin') {
+    chip.innerHTML = '<span style="background:rgba(201,168,76,0.2);color:#c9a84c;border:1px solid rgba(201,168,76,0.4);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;">&#128273; Admin</span>';
+    // Show admin nav buttons
+    var adminBtns = document.querySelectorAll('.admin-nav');
+    for (var i = 0; i < adminBtns.length; i++) adminBtns[i].style.display = '';
+    // Hide complaint nav
+    document.getElementById('complaintNav').style.display = 'none';
+    // Show registration form
+    var adminForm = document.querySelector('.admin-only');
+    if (adminForm) adminForm.style.display = '';
+  } else if (role === 'student') {
+    chip.innerHTML = '<span style="background:rgba(99,179,237,0.18);color:#63b3ed;border:1px solid rgba(99,179,237,0.35);padding:5px 14px;border-radius:20px;font-size:11px;font-weight:700;">&#127891; Student</span>';
+    // Hide admin nav buttons
+    var adminBtns = document.querySelectorAll('.admin-nav');
+    for (var i = 0; i < adminBtns.length; i++) adminBtns[i].style.display = 'none';
+    // Show complaint nav
+    document.getElementById('complaintNav').style.display = '';
+    // Hide registration form
+    var adminForm = document.querySelector('.admin-only');
+    if (adminForm) adminForm.style.display = 'none';
+  }
+}
+
+// ── DATA ──────────────────────────────────────────────────────────────────────
+var students = JSON.parse(localStorage.getItem('rk_students') || '[]');
+var feedbacks = JSON.parse(localStorage.getItem('rk_feedback') || '[]');
+var complaints = [];
+var totalBeds = 40;
+
+// ── NAVIGATION ────────────────────────────────────────────────────────────────
+function show(id) {
+  // Student cannot access students or fees sections
+  if (getRole() === 'student' && (id === 'students' || id === 'fees')) {
+    alert('Access denied. This section is for admin only.');
+    return;
+  }
+  var sections = document.querySelectorAll('section');
+  for (var i = 0; i < sections.length; i++) {
+    sections[i].classList.remove('active');
+  }
+  var navBtns = document.querySelectorAll('nav button');
+  for (var i = 0; i < navBtns.length; i++) {
+    navBtns[i].classList.remove('active-tab');
+  }
+  var target = document.getElementById(id);
+  if (target) target.classList.add('active');
+  // highlight nav button
+  for (var i = 0; i < navBtns.length; i++) {
+    var oc = navBtns[i].getAttribute('onclick') || '';
+    if (oc.indexOf("'" + id + "'") !== -1) {
+      navBtns[i].classList.add('active-tab');
+    }
+  }
+}
+
+function openLocation() {
+  window.open('https://maps.app.goo.gl/HWnjuMMsDTBTeqei8', '_blank');
+}
+
+// ── COMPLAINT ─────────────────────────────────────────────────────────────────
+function addComplaint() {
+  var t = document.getElementById('complaintText');
+  if (!t || !t.value.trim()) return;
+  complaints.push(t.value.trim());
+  var li = document.createElement('li');
+  li.style.cssText = 'background:white;border:1px solid #e0d8c8;border-left:4px solid #c9a84c;border-radius:8px;padding:14px 18px;margin-bottom:10px;font-size:14px;';
+  li.textContent = t.value.trim();
+  document.getElementById('complaintList').appendChild(li);
+  t.value = '';
+}
+
+// ── STUDENTS ──────────────────────────────────────────────────────────────────
+function addStudent() {
+  var name = document.getElementById('sname').value.trim();
+  if (!name) { alert('Please enter student name'); return; }
+  students.push({
+    name: name,
+    college: document.getElementById('college').value,
+    phone: document.getElementById('phone').value,
+    idproof: document.getElementById('idproof').value,
+    parent: document.getElementById('parent').value,
+    fee: parseInt(document.getElementById('paid').value) || 0,
+    doj: document.getElementById('doj').value
+  });
+  save();
+  document.getElementById('sname').value = '';
+  document.getElementById('college').value = '';
+  document.getElementById('phone').value = '';
+  document.getElementById('idproof').value = '';
+  document.getElementById('parent').value = '';
+  document.getElementById('paid').value = '';
+  document.getElementById('doj').value = '';
+}
+
+function save() {
+  localStorage.setItem('rk_students', JSON.stringify(students));
+  updateTables();
+  refreshDash();
+}
+
+function del(i) {
+  if (!confirm('Remove ' + students[i].name + '?')) return;
+  students.splice(i, 1);
+  save();
+}
+
+function updateTables() {
+  var sTable = document.getElementById('studentTable');
+  var fTable = document.getElementById('feeTable');
+  if (!sTable || !fTable) return;
+  sTable.innerHTML = '';
+  fTable.innerHTML = '';
+
+  var role = getRole();
+
+  for (var i = 0; i < students.length; i++) {
+    var s = students[i];
+    var roomNo = Math.ceil((i + 1) / 4);
+    var bedNo = i + 1;
+    var actionBtn = (role === 'admin') ? '<button class="action small danger" onclick="del(' + i + ')">Remove</button>' : '';
+    sTable.innerHTML += '<tr><td>' + (i+1) + '</td><td><strong>' + s.name + '</strong></td><td>' + (s.college||'—') + '</td><td>' + (s.phone||'—') + '</td><td>Room ' + roomNo + '</td><td>Bed ' + bedNo + '</td><td>&#8377;' + (s.fee||0).toLocaleString() + '</td><td>' + actionBtn + '</td></tr>';
+    var due = 10000 - (s.fee||0);
+    var paidStatus = due <= 0 ? '<span style="color:green;font-weight:600;">&#10003; Paid</span>' : '<span style="color:red;font-weight:600;">&#9888; Pending</span>';
+    fTable.innerHTML += '<tr><td><strong>' + s.name + '</strong></td><td>&#8377;' + (s.fee||0).toLocaleString() + '</td><td>&#8377;' + Math.max(0,due).toLocaleString() + '</td><td>' + paidStatus + '</td></tr>';
+  }
+
+  var occupied = students.length;
+  var avail = totalBeds - occupied;
+  document.getElementById('totalStudents').textContent = occupied;
+  document.getElementById('availableBeds').textContent = avail;
+  document.getElementById('occupiedRooms').textContent = Math.ceil(occupied / 4);
+  document.getElementById('pendingFees').textContent = students.filter(function(s){ return s.fee < 10000; }).length;
+
+  var bedsEl = document.getElementById('beds');
+  var roomsEl = document.getElementById('rooms');
+  var roomsUsedEl = document.getElementById('roomsUsed');
+  if (bedsEl) bedsEl.textContent = avail;
+  if (roomsEl) roomsEl.textContent = Math.ceil(avail / 4);
+  if (roomsUsedEl) roomsUsedEl.textContent = Math.ceil(occupied / 4);
+}
+
+// ── FEEDBACK ──────────────────────────────────────────────────────────────────
+function addFeedback() {
+  var name = document.getElementById('fbName').value.trim() || 'Anonymous';
+  var text = document.getElementById('fbText').value.trim();
+  if (!text) return;
+  feedbacks.push({ name: name, text: text });
+  localStorage.setItem('rk_feedback', JSON.stringify(feedbacks));
+  renderFeedbacks();
+  document.getElementById('fbName').value = '';
+  document.getElementById('fbText').value = '';
+}
+
+function renderFeedbacks() {
+  var list = document.getElementById('fbList');
+  if (!list) return;
+  list.innerHTML = '';
+  for (var i = 0; i < feedbacks.length; i++) {
+    var div = document.createElement('div');
+    div.style.cssText = 'background:white;border:1px solid #e0d8c8;border-radius:10px;padding:16px 20px;margin-bottom:10px;box-shadow:0 2px 8px rgba(0,0,0,0.06);';
+    div.innerHTML = '<div style="font-weight:600;color:#0d1b3e;margin-bottom:6px;">&#128100; ' + feedbacks[i].name + '</div><div style="color:#555;font-size:14px;">' + feedbacks[i].text + '</div>';
+    list.appendChild(div);
+  }
+}
+
+
+// ── ADMIN DASHBOARD CHARTS ────────────────────────────────────────────────────
+var chartOccupancy = null;
+var chartFees = null;
+var chartRevenue = null;
+
+function refreshDash() {
+  var occupied = students.length;
+  var avail = totalBeds - occupied;
+  var paidCount = students.filter(function(s){ return s.fee >= 10000; }).length;
+  var pendingCount = occupied - paidCount;
+  var totalRevenue = students.reduce(function(sum, s){ return sum + (s.fee || 0); }, 0);
+
+  // Update KPI cards
+  document.getElementById('dash_total').textContent = occupied;
+  document.getElementById('dash_paid').textContent = paidCount;
+  document.getElementById('dash_pending').textContent = pendingCount;
+  document.getElementById('dash_beds').textContent = avail;
+  document.getElementById('dash_revenue').textContent = '₹' + totalRevenue.toLocaleString();
+  document.getElementById('dash_rooms').textContent = Math.ceil(occupied / 4);
+
+  // ── Occupancy Doughnut ──
+  var occCanvas = document.getElementById('chartOccupancy');
+  if (occCanvas) {
+    if (chartOccupancy) chartOccupancy.destroy();
+    chartOccupancy = new Chart(occCanvas, {
+      type: 'doughnut',
+      data: {
+        labels: ['Occupied', 'Available'],
+        datasets: [{
+          data: [occupied, avail],
+          backgroundColor: ['#0d1b3e', '#c9a84c'],
+          borderWidth: 0,
+          hoverOffset: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom', labels: { font: { size: 13 }, padding: 16 } },
+          tooltip: {
+            callbacks: {
+              label: function(ctx) { return ctx.label + ': ' + ctx.parsed + ' beds'; }
+            }
+          }
+        },
+        cutout: '65%'
+      }
+    });
+  }
+
+  // ── Fee Status Doughnut ──
+  var feeCanvas = document.getElementById('chartFees');
+  if (feeCanvas) {
+    if (chartFees) chartFees.destroy();
+    chartFees = new Chart(feeCanvas, {
+      type: 'doughnut',
+      data: {
+        labels: ['Fully Paid', 'Pending'],
+        datasets: [{
+          data: [paidCount, pendingCount],
+          backgroundColor: ['#1a7a4a', '#b03030'],
+          borderWidth: 0,
+          hoverOffset: 8
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { position: 'bottom', labels: { font: { size: 13 }, padding: 16 } },
+          tooltip: {
+            callbacks: {
+              label: function(ctx) { return ctx.label + ': ' + ctx.parsed + ' students'; }
+            }
+          }
+        },
+        cutout: '65%'
+      }
+    });
+  }
+
+  // ── Revenue Bar Chart ──
+  var revCanvas = document.getElementById('chartRevenue');
+  if (revCanvas) {
+    if (chartRevenue) chartRevenue.destroy();
+    var labels = students.map(function(s, i) { return s.name || ('S' + (i+1)); });
+    var data   = students.map(function(s) { return s.fee || 0; });
+    var colors = students.map(function(s) { return (s.fee || 0) >= 10000 ? '#1a7a4a' : '#c9a84c'; });
+    if (labels.length === 0) {
+      labels = ['No students yet'];
+      data   = [0];
+      colors = ['#ccc'];
+    }
+    chartRevenue = new Chart(revCanvas, {
+      type: 'bar',
+      data: {
+        labels: labels,
+        datasets: [{
+          label: 'Fees Paid (₹)',
+          data: data,
+          backgroundColor: colors,
+          borderRadius: 6,
+          borderSkipped: false
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: function(ctx) { return '₹' + ctx.parsed.y.toLocaleString(); }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: 12000,
+            ticks: {
+              callback: function(v) { return '₹' + v.toLocaleString(); },
+              font: { size: 11 }
+            },
+            grid: { color: 'rgba(0,0,0,0.05)' }
+          },
+          x: {
+            ticks: { font: { size: 11 } },
+            grid: { display: false }
+          }
+        }
+      }
+    });
+  }
+
+  // ── Room Utilisation Bars ──
+  var roomBarsEl = document.getElementById('roomBars');
+  if (roomBarsEl) {
+    var totalRooms = Math.ceil(totalBeds / 4);
+    var html = '';
+    for (var r = 1; r <= totalRooms; r++) {
+      var bedStart = (r - 1) * 4;
+      var occupants = students.slice(bedStart, bedStart + 4);
+      var count = occupants.length;
+      var pct = (count / 4) * 100;
+      var color = count === 4 ? '#b03030' : count >= 2 ? '#c9a84c' : '#1a7a4a';
+      var statusLabel = count === 4 ? 'Full' : count === 0 ? 'Empty' : count + '/4 occupied';
+      html += '<div style="margin-bottom:14px;">';
+      html += '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">';
+      html += '<span style="font-size:13px;font-weight:600;color:#0d1b3e;">Room ' + r + '</span>';
+      html += '<span style="font-size:12px;color:#888;">' + statusLabel + '</span>';
+      html += '</div>';
+      html += '<div style="background:#f0ebe0;border-radius:6px;height:12px;overflow:hidden;">';
+      html += '<div style="height:100%;width:' + pct + '%;background:' + color + ';border-radius:6px;transition:width .4s ease;"></div>';
+      html += '</div></div>';
+    }
+    roomBarsEl.innerHTML = html;
+  }
+}
+
+// ── INIT ──────────────────────────────────────────────────────────────────────
+applyRoleUI();
+updateTables();
+renderFeedbacks();
+setTimeout(function(){ if(getRole()==="admin") refreshDash(); }, 100);
+</script>
+</body>
+</html>
