@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+        ansiColor('xterm')
+    }
+
     stages {
         stage('Show branch changes') {
             steps {
@@ -16,11 +20,11 @@ pipeline {
                         previous_commit="$(git hash-object -t tree /dev/null)"
                     fi
 
-                    echo "Building branch: $branch_name"
-                    echo "Changed files:"
-                    git diff --name-status "$previous_commit" "$current_commit"
-                    echo "Change summary:"
-                    git diff --stat "$previous_commit" "$current_commit"
+                    printf '\033[1;36mBuilding branch: %s\033[0m\n' "$branch_name"
+                    printf '\033[1;33mChanged files:\033[0m\n'
+                    git diff --color=always --name-status "$previous_commit" "$current_commit"
+                    printf '\033[1;33mChange summary:\033[0m\n'
+                    git diff --color=always --stat "$previous_commit" "$current_commit"
                 '''
             }
         }
