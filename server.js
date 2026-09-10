@@ -3,7 +3,7 @@ const app = express();
 
 app.use(express.static("public"));
 
-// Redirect root to login page
+// dashboard redirect login page
 app.get("/", (req, res) => {
   res.redirect("/login.html");
 });
