@@ -19,6 +19,8 @@ pipeline {
                     echo "Building branch: $branch_name"
                     echo "Changed files:"
                     git diff --name-status "$previous_commit" "$current_commit"
+                    echo "Change summary:"
+                    git diff --stat "$previous_commit" "$current_commit"
                 '''
             }
         }
